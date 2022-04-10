@@ -1,0 +1,4 @@
+<% impressions.each do |impression| %>
+ <%= link_to impression.impression %>
+ <%= link_to tag.name, tag_path(tag) %>
+<% end %>

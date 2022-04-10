@@ -1,0 +1,22 @@
+<div>
+  <div>
+    <%= @impression.body %>
+  </div>
+  <div>
+    <div>
+      <%= form_with model:@post_impression, url: impressions_path , method: :post,local: true do |f| %>
+     <div class="field">
+      <%= f.label :返信 %></br>
+      <%= f.text_field :post_impression %>
+      <%= hidden_field :impression_id , value: @impression.id %>
+　   </div>
+　    <%= f.submit "投稿" %>
+      <% end %>
+    </div>
+    <% @post_impressions.each do |post_impression| %>
+    <div>
+     <%= post_impression.impression %>
+    </div>
+    <% end %>
+  </div>
+</div>

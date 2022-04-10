@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TagRelationTest < ActiveSupport::TestCase
+class PostImpressionsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

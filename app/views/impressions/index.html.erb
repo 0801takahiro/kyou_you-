@@ -1,0 +1,38 @@
+<div>
+ <div class = 'new-impression'>
+  <h3>思いの丈をぶちまけよう！</h3>
+   <div class="field">
+   <%= form_with model:@new_impression, url: impressions_path ,local: true do |f| %>
+    <%= f.label :感想 %></br>
+    <%= f.text_field :body %>
+   </div>
+   <div class="field">
+    <%= f.label :タグ %><a>(複数タグをつける際はタグの間をスペースで区切ってください。)</a></br>
+    <%= f.text_field :tag_list, value: @new_impression.tag_list %>
+　 </div>
+　 <div class="actions">
+　  <%= f.submit "投稿" %>
+　 </div>
+   <% end %>
+ </div>
+ <div class = 'impression-body'>
+  <div>
+    <h3>検索窓</h3>
+
+  </div>
+  <div>
+   <div class = 'impression-list'>
+
+     <% @impressions.each do |impression| %>
+     <div>
+      <%= link_to impression.body, impression_path(impression) %>
+      <%= link_to tag.name, tag_path(tag) %>
+     </div>
+    <% end %>
+
+
+   </div>
+  </div>
+
+ </div>
+</div>

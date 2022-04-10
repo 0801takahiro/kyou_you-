@@ -7,8 +7,33 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+  <header>
+  <% if user_signed_in? %>
+   <div class = 'header'>
+     <div class = 'nav-ber'>
+      <ul>
+        <li><%= link_to "マイページ", user_path(current_user) %></li>
+        <li><%= link_to "impression", root_path %></li>
+      </ul>
+     </div>
+   </div>
+  <% else %>
+   <div class = 'header'>
+     <div class = 'nav-ber'>
+      <ul>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
+        <li><%= link_to "impression", root_path %></li>
+      </ul>
+     </div>
+   </div>
+  <% end %>
+  </header>
   <body>
     <%= yield %>
   </body>
+  <footer>
+   <div class= 'footer'>
+
+   </div>
+  </footer>
 </html>
