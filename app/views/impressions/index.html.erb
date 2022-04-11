@@ -23,11 +23,9 @@
   <div>
    <div class = 'impression-list'>
 
-     <% @impressions.each do |impression| %>
-     <div>
-      <%= link_to impression.body, impression_path(impression) %>
-      <%= link_to tag.name, tag_path(tag) %>
-     </div>
+    <% @impressions.each do |impression| %>
+
+      <%= render 'impression', impression: impression %>
     <% end %>
 
 

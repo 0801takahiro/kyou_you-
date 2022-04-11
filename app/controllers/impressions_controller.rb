@@ -2,6 +2,9 @@ class ImpressionsController < ApplicationController
   def index
     @new_impression = Impression.new
     @impressions = Impression.all
+    if params[:tag_name]
+      @posts = Post.tagged_with("#{params[:tag_name]}")
+    end
   end
   def show
     @impression = Impression.find(params[:id])

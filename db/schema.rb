@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_09_092849) do
+ActiveRecord::Schema.define(version: 2022_04_11_102721) do
 
   create_table "connections", force: :cascade do |t|
     t.integer "followed_id"
@@ -19,16 +19,24 @@ ActiveRecord::Schema.define(version: 2022_04_09_092849) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "impression_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "impressions", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "post_impressions", force: :cascade do |t|
     t.string "user_id"
     t.string "impression_id"
-    t.text "impression"
+    t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

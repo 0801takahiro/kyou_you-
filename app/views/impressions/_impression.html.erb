@@ -1,0 +1,11 @@
+     <div>
+      <%= link_to impression.body, impression_path(impression) %>
+      <% if user_signed_in? && current_user.favd?(impression.id) %>
+          <td><%= link_to 'いいね解除', destroy_favorite_path(impression), method: :DELETE %></td>
+        <% else %>
+          <td><%= link_to 'いいね', create_favorite_path(impression), method: :POST %></td>
+      <% end %>
+     </div>
+     <div>
+       <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a>
+     </div>
