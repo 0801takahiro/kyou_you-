@@ -1,0 +1,21 @@
+<h2>登録情報編集</h2>
+<div>
+ <%= form_with model:@user,local:true, method: :patch do |f| %>
+ <div>
+   <%= f.attachment_field :image %>
+ </div>
+ <div>
+  <%= f.label :氏名 %></br>
+  <%= f.text_area :name %>
+ </div>
+ <div>
+  <%= f.label :プロフィール %></br>
+  <%= f.text_area :introduction %>
+ </div>
+ <div>
+  <%= f.label :メールアドレス %></br>
+  <%= f.text_area :email %>
+ </div>
+  <%= f.submit "編集内容を保存" %>
+ <% end %>
+</div>

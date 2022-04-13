@@ -2,9 +2,7 @@ class ImpressionsController < ApplicationController
   def index
     @new_impression = Impression.new
     @impressions = Impression.all
-    if params[:tag_name]
-      @posts = Post.tagged_with("#{params[:tag_name]}")
-    end
+    @tags = Impression.tag_counts_on(:tags).most_used(20)
   end
   def show
     @impression = Impression.find(params[:id])
@@ -19,7 +17,7 @@ class ImpressionsController < ApplicationController
 
   private
   def impression_params
-    params.require(:impression).permit(:body, :tag_list)
+    params.require(:impression).permit(:body, :tag_list, :user_id)
   end
 end
 

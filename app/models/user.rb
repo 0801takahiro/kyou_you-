@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :favorites
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
   def favd?(impression_id)
      favorites.where(impression_id: impression_id).exists?
   end

@@ -1,3 +1,4 @@
+     <% if user_signed_in? %>
      <div>
       <%= link_to impression.body, impression_path(impression) %>
       <% if user_signed_in? && current_user.favd?(impression.id) %>
@@ -5,6 +6,15 @@
       <% else %>
           <td><%= link_to 'いいね', create_favorite_path(impression), method: :POST %></td>
       <% end %>
+      </div>
+     <% else %>
+     <div>
+
+      <%= link_to impression.body, impression_path(impression) %>
+
+     </div>
+
+     <% end %>
      </div>
      <div>
        <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a>

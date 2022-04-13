@@ -1,10 +1,12 @@
 <div>
+ <% if user_signed_in? %>
  <div class = 'new-impression'>
   <h3>思いの丈をぶちまけよう！</h3>
    <div class="field">
    <%= form_with model:@new_impression, url: impressions_path ,local: true do |f| %>
     <%= f.label :感想 %></br>
     <%= f.text_field :body %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
    </div>
    <div class="field">
     <%= f.label :タグ %><a>(複数タグをつける際はタグの間をスペースで区切ってください。)</a></br>
@@ -15,6 +17,8 @@
 　 </div>
    <% end %>
  </div>
+ <% else %>
+ <% end %>
  <div class = 'impression-body'>
   <div>
     <h3>検索窓</h3>
@@ -24,8 +28,10 @@
    <div class = 'impression-list'>
 
     <% @impressions.each do |impression| %>
-
       <%= render 'impression', impression: impression %>
+      <% impression.tags.each do |tag| %>
+       <%= link_to "#{tag.name}", tags_path(tag.name) %>
+      <% end %>
     <% end %>
 
 
