@@ -1,5 +1,5 @@
 <div>
-   <%= @impression.user.id %>
+   <%= link_to @impression.user.name, user_path(@impression.user_id) %>
   <div>
     <%= @impression.body %>
   </div>

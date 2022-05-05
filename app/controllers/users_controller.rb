@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   end
   def show
    @user = User.find(params[:id])
+   @favorites = current_user.favorites
+   @impressions = @user.impressions
   end
   def edit
    @user = User.find_by(id: current_user)
@@ -18,6 +20,6 @@ class UsersController < ApplicationController
   end
   private
    def user_params
-    params.require(:user).permit(:name,:introduction,:email,:image)
+    params.require(:user).permit(:name, :introduction, :email, :image)
    end
 end

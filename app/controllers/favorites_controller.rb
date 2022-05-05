@@ -7,4 +7,8 @@ class FavoritesController < ApplicationController
     Favorite.find_by(user_id: current_user.id,impression_id: params[:id]).destroy
     redirect_to root_path
   end
+  private
+   def favorite_params
+     params.require(:favorite).permit(:user_id,:impression_id)
+   end
 end

@@ -1,16 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users do
-    resource :connecthions, only: [:create, :destroy]
-    get 'followings' => 'connecthions#followings', as: 'followings'
-    get 'followers' => 'connecthions#followers', as: 'followers'
-  end
+  resources :users
+  resources :relationships, only: [:create, :destroy]
   resources :impressions, only: [:show, :create] do
     resources :post_impressions, only: [:create, :destroy]
-    collection do
-      get 'search'
-    end
   end
+  get "search_result" => "searches#search_result"
+  get "search" => "searches#search"
   post 'favorite/:id' => 'favorites#create', as: 'create_favorite'
   delete 'favorite/:id' => 'favorites#destroy',as: 'destroy_favorite'
   resources :tags, only: [:index,:show]

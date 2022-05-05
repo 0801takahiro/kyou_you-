@@ -1,7 +1,9 @@
 <h2>登録情報編集</h2>
 <div>
  <%= form_with model:@user,local:true, method: :patch do |f| %>
-
+ <div>
+   <%= f.attachment_field :image %>
+ </div>
  <div>
   <%= f.label :氏名 %></br>
   <%= f.text_area :name %>

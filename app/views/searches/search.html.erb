@@ -1,0 +1,37 @@
+<h2>Results index</h2>
+
+<table>
+  <% if @range == "User" %>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.name, user_path(user) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <tbody>
+    <% @impressions.each do |impression| %>
+      <% if user_signed_in? %>
+       <div>
+        <%= link_to impression.user.name, user_path(impression.user_id) %>
+        <td><%= link_to impression.body, impression_path(impression) %></td>
+        <% if user_signed_in? && current_user.favd?(impression.id) %>
+          <td><%= link_to 'いいね解除', destroy_favorite_path(impression), method: :DELETE %></td>
+        <% else %>
+          <td><%= link_to 'いいね', create_favorite_path(impression), method: :POST %></td>
+        <% end %>
+      </div>
+      <% else %>
+      <div>
+
+      <%= link_to impression.body, impression_path(impression) %>
+
+      </div>
+
+       <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>
