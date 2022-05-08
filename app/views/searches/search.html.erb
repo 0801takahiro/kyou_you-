@@ -12,25 +12,32 @@
   <% else %>
     <tbody>
     <% @impressions.each do |impression| %>
-      <% if user_signed_in? %>
        <div>
+         <div>
         <%= link_to impression.user.name, user_path(impression.user_id) %>
-        <td><%= link_to impression.body, impression_path(impression) %></td>
+        </div>
+        <div>
+        <%= link_to impression.body, impression_path(impression) %>
+        </div>
+       <div>
+       <%= impression.contents.map(&:name).join('　') %>
+       </div>
+
         <% if user_signed_in? && current_user.favd?(impression.id) %>
-          <td><%= link_to 'いいね解除', destroy_favorite_path(impression), method: :DELETE %></td>
+          <%= link_to 'いいね解除', destroy_favorite_path(impression), method: :DELETE %>
         <% else %>
-          <td><%= link_to 'いいね', create_favorite_path(impression), method: :POST %></td>
+          <%= link_to 'いいね', create_favorite_path(impression), method: :POST %>
         <% end %>
       </div>
-      <% else %>
+      <div>
+        <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a>
+       <% if current_user.id == impression.user_id %>
+        <%= link_to '削除', impression_path(impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
+       <% end %>
+     </div>
       <div>
 
-      <%= link_to impression.body, impression_path(impression) %>
-
       </div>
-
-       <% end %>
-        </tr>
       <% end %>
     </tbody>
   <% end %>

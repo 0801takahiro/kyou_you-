@@ -51,6 +51,8 @@ gem 'devise'
 
 gem 'acts-as-taggable-on', '~> 7.0'
 
+gem 'kaminari'
+
 gem 'ransack'
 
 gem "refile", require: "refile/rails", github: 'manfe/refile'

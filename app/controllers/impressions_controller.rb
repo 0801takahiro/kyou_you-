@@ -2,7 +2,7 @@ class ImpressionsController < ApplicationController
   def index
     @new_impression = Impression.new
     @impressions = Impression.all
-    @tags = Impression.tag_counts_on(:tags).most_used(20)
+    @content_list = Content.all
   end
   def show
     @impression = Impression.find(params[:id])
@@ -11,13 +11,23 @@ class ImpressionsController < ApplicationController
   end
   def create
     @new_impression = Impression.new(impression_params)
-    @new_impression.save
+    @new_impression.user_id = current_user.id
+    content_list = params[:impression][:name].split('　')
+    if @new_impression.save
+       @new_impression.save_content(content_list)
+       redirect_to root_path
+    else
+       render:index
+    end
+  end
+  def destroy
+    @impression = Impression.find(params[:id])
+    @impression.destroy
     redirect_to root_path
   end
-
   private
   def impression_params
-    params.require(:impression).permit(:body, :tag_list, :user_id)
+    params.require(:impression).permit(:body, :user_id)
   end
 end
 

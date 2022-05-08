@@ -9,8 +9,8 @@
     <%= f.hidden_field :user_id, value: current_user.id %>
    </div>
    <div class="field">
-    <%= f.label :タグ %><a>(複数タグをつける際はタグの間をスペースで区切ってください。)</a></br>
-    <%= f.text_field :tag_list, value: @new_impression.tag_list %>
+    <%= f.label :タグ %><a>(複数タグをつける際はタグの間を全角スペースで区切ってください。)</a></br>
+    <%= f.text_field :name %>
 　 </div>
 　 <div class="actions">
 　  <%= f.submit "投稿" %>
@@ -26,7 +26,7 @@
      <div>
       <%= form_with url: search_path, local: true, method: :get do |f| %>
         <%= f.text_field :word %>
-        <%= f.select :range, options_for_select([['User'], ['Impression']]) %>
+        <%= f.select :range, options_for_select([['User'],  ['Impression']]) %>
         <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
         <%= f.submit "検索" %>
       <% end %>
@@ -37,10 +37,33 @@
    <div class = 'impression-list'>
 
     <% @impressions.each do |impression| %>
-      <%= render 'impression', impression: impression %>
-      <% impression.tags.each do |tag| %>
-       <%= link_to "#{tag.name}", tags_path(tag.name) %>
+     <% if user_signed_in? %>
+     <div>
+      <%= link_to impression.user.name, user_path(impression.user_id) %></br>
+      <%= link_to impression.body, impression_path(impression) %></br>
+      <%= impression.contents.map(&:name).join('　') %></br>
+      <% if user_signed_in? && current_user.favd?(impression.id) %>
+          <td><%= link_to 'いいね解除', destroy_favorite_path(impression), method: :DELETE %></td>
+      <% else %>
+          <td><%= link_to 'いいね', create_favorite_path(impression), method: :POST %></td>
       <% end %>
+      </div>
+     <% else %>
+     <div>
+
+      <%= link_to impression.body, impression_path(impression) %>
+
+     </div>
+
+     <% end %>
+     </div>
+     <div>
+       <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a>
+       <% if current_user.id == impression.user_id %>
+        <%= link_to '削除', impression_path(impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
+       <% end %>
+     </div>
+
     <% end %>
 
 

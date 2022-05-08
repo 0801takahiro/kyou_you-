@@ -1,9 +1,9 @@
 class TagsController < ApplicationController
   def index
-    @tags = ActASTaggableOn::Tag.all
+    @tags = ActsASTaggableOn::Tag.all
   end
   def show
-    @tag = ActASTaggableOn::Tag.find(params[:id])
+    @tag = ActsASTaggableOn::Tag.find(params[:id])
     @impressions = Impression.tagged_with(@tag.name)
   end
 end
