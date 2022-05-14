@@ -4,6 +4,11 @@
     <%= @impression.body %>
   </div>
   <div>
+    <% @impression.contents.each do |content| %>
+     <%= link_to content.name, search_content_path(content_id: content.id) %>
+    <% end %>
+  </div>
+  <div>
     <div>
       <%= form_with(model:[@impression, @post_impression], local: true) do |f| %>
      <div class="field">

@@ -6,6 +6,7 @@ class UsersController < ApplicationController
    @user = User.find(params[:id])
    @favorites = current_user.favorites
    @impressions = @user.impressions
+   @contents = Content.all
   end
   def edit
    @user = User.find_by(id: current_user)

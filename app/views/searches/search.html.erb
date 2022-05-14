@@ -9,7 +9,7 @@
         </tr>
       <% end %>
     </tbody>
-  <% else %>
+  <% elsif @range == "Impression" %>
     <tbody>
     <% @impressions.each do |impression| %>
        <div>
@@ -35,10 +35,12 @@
         <%= link_to '削除', impression_path(impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
        <% end %>
      </div>
-      <div>
 
-      </div>
       <% end %>
     </tbody>
+  <% elsif @range == "Content" %>
+   <% @content.each do |content| %>
+    <%= link_to content.name, search_content_path(content_id: content.id) %>
+   <% end %>
   <% end %>
 </table>

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :impressions, only: [:index, :show, :create, :destroy] do
     resources :post_impressions, only: [:create, :destroy]
   end
+  resources :favorites
+  get "search_content" => "impressions#search_content"
   get "search_result" => "searches#search_result"
   get "search" => "searches#search"
   post 'favorite/:id' => 'favorites#create', as: 'create_favorite'

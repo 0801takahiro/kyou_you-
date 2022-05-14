@@ -8,8 +8,8 @@ class SearchesController < ApplicationController
       @users = User.looks(params[:search], params[:word])
     elsif @range == "Impression"
       @impressions = Impression.looks(params[:search], params[:word])
-    else
-      @contents = Content.looks(params[:search], params[:word])
+    elsif @range == "Content"
+      @content = Content.looks(params[:search], params[:word])
     end
   end
 end

@@ -1,7 +1,8 @@
 class Content < ApplicationRecord
+  has_many :content_relations, dependent: :destroy
   has_many :impressions,through: :content_relations
   validates :name, uniqueness: true, presence: true
-  has_many :content_relations,dependent: :destroy, foreign_key: 'content_id'
+
   def save_content(sent_contents)
     current_contents = self.contents.pluck(:name) unless self.contents.nil?
     old_contents = current_contents - sent_contents

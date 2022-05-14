@@ -26,21 +26,13 @@
   <% @impressions.each do |impression| %>
    <%= impression.user.name %></br>
    <%= impression.body %>
+   <% impression.contents.each do |content| %>
+    <%= link_to content.name, search_content_path(content_id: content.id) %>
+   <% end %></br>
   <% end %>
 </div>
 <div>
-  <% if current_user.id == @user.id  %>
+ <%= link_to 'お気に入り一覧' ,favorites_path %>
 
-  <h2>いいね一覧</h2>
-   <% @favorites.each do |favorite| %>
-    <% favorite.impressions.each do |impression| %>
-    <div>
-
-     <%= impression.body %>
-    </div>
-    <% end %>
-   <% end %>
-  <% else %>
-  <% end %>
 </div>
 </div>
