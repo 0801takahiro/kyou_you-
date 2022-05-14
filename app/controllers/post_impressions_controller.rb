@@ -7,6 +7,11 @@ class PostImpressionsController < ApplicationController
     @post_impression.save
     redirect_to impression_path(@post_impression.impression_id)
   end
+  def destroy
+    @post_impression = PostImpression.find_by(id: params[:id])
+    @post_impression.destroy
+    redirect_back fallback_location: @post
+  end
   private
   def post_impression_params
     params.require(:post_impression).permit(:body)

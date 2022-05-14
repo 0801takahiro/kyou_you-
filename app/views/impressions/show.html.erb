@@ -20,7 +20,11 @@
     </div>
     <% @impression.post_impressions.each do |post_impression| %>
     <div>
-     <%= post_impression.body %>
+     <%= link_to post_impression.user.name, user_path(post_impression.user_id) %></br>
+     <%= post_impression.body %></br>
+     <% if post_impression.user == current_user %>
+     <%= link_to '削除', impression_post_impression_path(post_impression.impression,post_impression ),method: :delete, data: { confirm: '本当にいいですか?' } %>
+     <% end %>
     </div>
     <% end %>
   </div>

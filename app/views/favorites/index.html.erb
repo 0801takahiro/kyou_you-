@@ -1,10 +1,12 @@
 <div>
 
   <h2>いいね一覧</h2>
-   <% @impressions.each do |impression| %>
+   <% @favorites.each do |favorite| %>
+    <% favorite.impressions.each do |impression| %>
     <div>
+     <%= link_to impression.user.name, user_path(favorite.user) %></br>
      <%= impression.body %>
     </div>
-
+    <% end %>
    <% end %>
   </div>

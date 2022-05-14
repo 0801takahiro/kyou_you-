@@ -1,15 +1,16 @@
 class FavoritesController < ApplicationController
   def index
-    @favorites = current_user.favorites
-    @impressions = @favorite.impressions
+    @user = User.find(params[:user_id])
+    @favorites = @user.favorites
   end
   def create
+    @impression = Impression.find(params[:id])
     Favorite.create(user_id: current_user.id,impression_id: params[:id])
-    redirect_to root_path
   end
   def destroy
+    @impression = Impression.find(params[:id])
     Favorite.find_by(user_id: current_user.id,impression_id: params[:id]).destroy
-    redirect_to root_path
+
   end
   private
    def favorite_params
