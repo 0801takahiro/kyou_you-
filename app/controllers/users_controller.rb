@@ -8,6 +8,13 @@ class UsersController < ApplicationController
    @impressions = @user.impressions
    @contents = Content.all
   end
+  def follow_list
+   @user = User.find(params[:user_id])
+  end
+  def follower_list
+   @user = User.find(params[:user_id])
+   @follower = @user.reverse_of_relationships
+  end
   def edit
    @user = User.find_by(id: current_user)
   end

@@ -41,6 +41,7 @@
   <% elsif @range == "Content" %>
    <% @content.each do |content| %>
     <%= link_to content.name, search_content_path(content_id: content.id) %>
+    <%="(#{content.impressions.count})" %>
    <% end %>
   <% end %>
 </table>

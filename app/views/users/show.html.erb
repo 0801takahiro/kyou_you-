@@ -1,7 +1,7 @@
 <div>
 <div>
  <div>
-  <%= attachment_image_tag @user, :image , :size => '40x40' %>
+  <%= attachment_image_tag @user, :image , fallback: "no-image.png", :size => '40x40' %>
  </div>
  <div>
   <%= @user.name %>
@@ -13,27 +13,34 @@
    <% if @user.id == current_user.id %>
       <%= link_to "プロフィール編集", edit_user_path(current_user.id) %>
    <% else %>
+      <tbody>
+       <%= render 'follow', user: @user %>
+      </tbody>
    <% end %>
  </div>
 </div>
 <div>
-<tbody>
-<%= render 'follow', user: @user %>
-</tbody>
+
+</div>
+<div>
+ <%= link_to 'フォロー一覧' ,user_follow_list_path(user_id: @user) %></br>
+ <%= link_to 'フォロワー一覧' ,user_follower_list_path(user_id: @user) %>
 </div>
 <div>
  <h2>投稿一覧</h2>
   <% @impressions.each do |impression| %>
    <%= impression.user.name %></br>
-   <%= impression.body %>
+   <%= impression.body %></br>
+   <div>
+    <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a></br>
+     <% if current_user.id == impression.user_id %>
+      <%= link_to '削除', impression_path(impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
+     <% end %>
+   </div>
    <% impression.contents.each do |content| %>
     <%= link_to content.name, search_content_path(content_id: content.id) %>
    <% end %></br>
   <% end %>
 </div>
-<div>
- <%= link_to 'いいね！一覧' ,user_favorites_path(user_id: @user) %></br>
- <%= link_to 'フォロー一覧' ,user_follow_list_path(user_id: @user) %>
 
-</div>
 </div>

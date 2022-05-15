@@ -1,0 +1,4 @@
+
+<% @user.relationships.each do |relationship| %>
+  <%= link_to relationship.follow.name, user_path(relationship.follow) %></br>
+<% end %>

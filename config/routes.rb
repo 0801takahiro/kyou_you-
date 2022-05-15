@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :favorites
     get "follow_list" => "users#follow_list"
+    get "follower_list" => "users#follower_list"
   end
   resources :relationships, only: [:create, :destroy]
   resources :impressions, only: [:index, :show, :create, :destroy] do

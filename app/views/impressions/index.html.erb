@@ -39,6 +39,9 @@
     <% @impressions.each do |impression| %>
      <% if user_signed_in? %>
      <div>
+      <%= attachment_image_tag @user, :image , fallback: "no-image.png", :size => '40x40' %>
+     </div>
+     <div>
       <%= link_to impression.user.name, user_path(impression.user_id) %></br>
       <%= link_to impression.body, impression_path(impression) %></br>
       <% impression.contents.each do |content| %>

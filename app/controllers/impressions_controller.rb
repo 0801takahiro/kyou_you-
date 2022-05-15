@@ -12,8 +12,6 @@ class ImpressionsController < ApplicationController
     @post_impression = PostImpression.new
     @content = Content.all
   end
-  def follow_list
-  end
   def search_content
     @content_list = Content.all
     @content = Content.find(params[:content_id])
