@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_09_051745) do
+ActiveRecord::Schema.define(version: 2022_05_10_172413) do
 
   create_table "content_relations", force: :cascade do |t|
     t.integer "impression_id"
