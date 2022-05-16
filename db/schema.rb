@@ -17,9 +17,7 @@ ActiveRecord::Schema.define(version: 2022_05_10_172413) do
     t.integer "content_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["content_id"], name: "index_content_relations_on_content_id"
     t.index ["impression_id", "content_id"], name: "index_content_relations_on_impression_id_and_content_id", unique: true
-    t.index ["impression_id"], name: "index_content_relations_on_impression_id"
   end
 
   create_table "contents", force: :cascade do |t|

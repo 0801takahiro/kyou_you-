@@ -1,8 +1,8 @@
 class CreateContentRelations < ActiveRecord::Migration[5.2]
   def change
     create_table :content_relations do |t|
-      t.references :impression, foreign_key: true
-      t.references :content, foreign_key: true
+      t.integer :impression_id, foreign_key: true
+      t.integer :content_id, foreign_key: true
 
       t.timestamps
     end
