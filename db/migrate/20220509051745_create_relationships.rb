@@ -6,6 +6,6 @@ class CreateRelationships < ActiveRecord::Migration[5.2]
       t.timestamps
       t.index [:user_id, :follow_id], unique: true
     end
-    add_foreign_key :favorites, :users
+    add_foreign_key :relationships, :users
   end
 end
