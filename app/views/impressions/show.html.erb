@@ -1,8 +1,54 @@
-<div>
+<div class = 'body'>
+ <% if user_signed_in? %>
+ <div class = 'new-impression'>
+  <h5>思いの丈をぶちまけよう！</h5>
+   <div class="impression-field">
+    <%= form_with model:@new_impression, url: impressions_path ,local: true do |f| %>
+     <h3>感想</h3>
+      <%= f.text_field :body %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+
+   <div class="tag-field">
+    <h3>タグ</h3><h5>(複数タグをつける際はタグの間を全角スペースで区切ってください)</h5>
+     <%= f.text_field :name %>
+　   <%= f.submit "投稿" %>
+　 </div>
+
+   <% end %>
+  </div>
+  <div class = "seach">
+      <h3>検索窓</h3>
+      <%= form_with url: search_path, local: true, method: :get do |f| %>
+        <%= f.text_field :word %></br>
+        <%= f.select :range, options_for_select([['ユーザー','User'],  ['タグ','Content'],  ['投稿','Impression']]) %></br>
+        <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
+        <%= f.submit "検索" %>
+      <% end %>
+   </div>
+   <div class = "tag-list">
+    <h3>タグ一覧</h3>
+   <% @content.each do |content| %>
+    <%= link_to content.name, search_content_path(content_id: content.id) %>
+    <%="(#{content.impressions.count})" %></br>
+   <% end %>
+   </div>
+
+ <% else %>
+ <div class = 'new-impression'>
+ <% @content.each do |content| %>
+    <%= link_to content.name, search_content_path(content_id: content.id) %>
+    <%="(#{content.impressions.count})" %></br>
+   <% end %>
+ <% end %>
+ </div>
+<div class = 'impression-detail'>
    <%= link_to @impression.user.name, user_path(@impression.user_id) %>
   <div>
     <%= @impression.body %>
   </div>
+  <div id="favorite_buttons_<%= @impression.id %>">
+        <%= render "favorites/favorite",impression: @impression %>
+      </div>
   <div>
     <% @impression.contents.each do |content| %>
      <%= link_to content.name, search_content_path(content_id: content.id) %>

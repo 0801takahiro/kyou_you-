@@ -18,16 +18,75 @@
   padding: 0;
   box-sizing: border-box;
 }
+a {
+    text-decoration:none;
+}
 
- .header {
+ header {
   width: 100%;
   height: 100px;
   background-color: red;
-  display: flex;
   text-align: center;
+  font-family: “gagagaga_free”;
+}
+.header-logo{
+  background-color: khaki;
+  align-items: center;
+  font-size: 40px;
 }
 
-.footer {
+.header-nav-ber {
+  background-color: blue;
+}
+.header-nav-ber-item{
+  list-style: none;
+  display: inline-block;
+  margin: 0 20px;
+  font-size: 25px;
+}
+main{
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+.body{
+  display: flex;
+
+}
+.new-impression{
+  width: 25%;
+  text-align: left;
+}
+.impression-body{
+  width: 65%;
+}
+.impression-list{
+  display: flex;
+  flex-direction:column
+}
+.impression-list-head{
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+}
+.impression-list-body{
+  text-align: left;
+}
+.impression-list-body-name{
+  
+}
+.impression-list-link{
+  text-align: left;
+}
+.good-icon-heartfull{
+  width: 25px;
+  height: 25px;
+}
+.good-icon-heartnull{
+  width: 25px;
+  height: 25px;
+}
+footer {
   width: 100%;
   height: 70px;
   position: absolute;

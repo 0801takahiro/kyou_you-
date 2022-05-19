@@ -1,15 +1,27 @@
-<div>
-<div>
- <div>
-  <%= attachment_image_tag @user, :image , fallback: "no-image.png", :size => '40x40' %>
- </div>
- <div>
-  <%= @user.name %>
- </div>
- <div>
+<div class = 'user-page'>
+ <div class = 'user-page-prof'>
+  <div>
+   <%= attachment_image_tag @user, :image , fallback: "no-image.png", :size => '90x75' %>
+  </div>
+  <div class = 'user-page-prof-name'>
+   <%= @user.name %>
+  </div>
+  <div>
    <%= @user.introduction %>
- </div>
- <div>
+  </div>
+  <div>
+   <%= link_to 'フォローリスト' ,user_follow_list_path(user_id: @user) %></br>
+   <%= link_to 'フォロワーリスト' ,user_follower_list_path(user_id: @user) %></br>
+   <% if user_signed_in? %>
+   <% if @user.id == current_user.id %>
+    <%= link_to 'いいね!リスト' , user_favorites_path(user_id: @user) %>
+   <% else %>
+   <% end %>
+  <% else %>
+  <% end %>
+  </div>
+  <div>
+  <% if user_signed_in? %>
    <% if @user.id == current_user.id %>
       <%= link_to "プロフィール編集", edit_user_path(current_user.id) %>
    <% else %>
@@ -17,30 +29,71 @@
        <%= render 'follow', user: @user %>
       </tbody>
    <% end %>
- </div>
-</div>
-<div>
-
-</div>
-<div>
- <%= link_to 'フォロー一覧' ,user_follow_list_path(user_id: @user) %></br>
- <%= link_to 'フォロワー一覧' ,user_follower_list_path(user_id: @user) %>
-</div>
-<div>
- <h2>投稿一覧</h2>
-  <% @impressions.each do |impression| %>
-   <%= impression.user.name %></br>
-   <%= impression.body %></br>
-   <div>
-    <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a></br>
-     <% if current_user.id == impression.user_id %>
-      <%= link_to '削除', impression_path(impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
-     <% end %>
-   </div>
-   <% impression.contents.each do |content| %>
-    <%= link_to content.name, search_content_path(content_id: content.id) %>
-   <% end %></br>
+  <% else %>
   <% end %>
-</div>
+  </div>
+ </div>
+
+<% if user_signed_in? %>
+ <div class = 'impression-body'>
+   <% @impressions.each do |impression| %>
+    <div class = 'impression-list'>
+     <div class = "impression-list-head">
+      <div class ="impression-list-icon">
+       <%= attachment_image_tag impression.user, :image , fallback: "no-image.png", :size => '60x50' %>
+      </div>
+      <div class ="impression-list-body-name">
+       <%= link_to impression.user.name, user_path(impression.user_id) %></br>
+      </div>
+      <div id="favorite_buttons_<%= impression.id %>">
+        <%= render "favorites/favorite",impression: impression %>
+      </div>
+     </div>
+     <div class ="impression-list-body">
+      <%= link_to impression.body, impression_path(impression) %></br>
+      <%= impression.created_at.strftime('%Y/%m/%d') %></br>
+      <% impression.contents.each do |content| %>
+       <%= link_to content.name, search_content_path(content_id: content.id) %>
+      <% end %></br>
+
+     </div>
+     <div class = "impression-list-link">
+       <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a>
+       <% if current_user.id == impression.user_id %>
+        <%= link_to '削除', impression_path(impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
+       <% end %>
+     </div>
+    </div>
+    <% end %>
+ <% else %>
+<div class = 'impression-body'>
+   <% @impressions.each do |impression| %>
+    <div class = 'impression-list'>
+     <div class = "impression-list-head">
+      <div class ="impression-list-icon">
+       <%= attachment_image_tag impression.user, :image , fallback: "no-image.png", :size => '60x50' %>
+      </div>
+      <div class ="impression-list-body-name">
+       <%= link_to impression.user.name, user_path(impression.user_id) %></br>
+      </div>
+     </div>
+     <div class ="impression-list-body">
+      <%= link_to impression.body, impression_path(impression) %></br>
+      <%= impression.created_at.strftime('%Y/%m/%d') %></br>
+      <% impression.contents.each do |content| %>
+       <%= link_to content.name, search_content_path(content_id: content.id) %>
+      <% end %></br>
+
+     </div>
+     <div class = "impression-list-link">
+       <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a>
+     </div>
+    </div>
+    <% end %>
+ <% end %>
+
+     </div>
+   </div>
+  </div>
 
 </div>

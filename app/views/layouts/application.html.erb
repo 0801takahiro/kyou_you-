@@ -3,35 +3,40 @@
   <head>
     <title>KyouYou</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <header>
   <% if user_signed_in? %>
-   <div class = 'header'>
-     <div class = 'nav-ber'>
+   <div class = "header">
+     <div class = "header-logo">
+       <a><%= link_to "Kyou_you-!",root_path %></a>
+     </div>
+     <div class = "header-nav-ber">
       <ul>
-        <li><%= link_to "マイページ", user_path(current_user) %></li>
-        <li><%= link_to "impression", root_path %></li>
-        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <li class = "header-nav-ber-item"><%= link_to "マイページ", user_path(current_user) %></li>
+        <li class = "header-nav-ber-item"><%= link_to "impression", root_path %></li>
+        <li class = "header-nav-ber-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       </ul>
      </div>
    </div>
   <% else %>
    <div class = 'header'>
-     <div class = 'nav-ber'>
+     <div class = 'header-logo'>
+       <a><%= link_to "Kyou_you-!",root_path %></a>
+     </div>
+     <div class = 'header-nav-ber'>
       <ul>
-        <li><%= link_to "ログイン", new_user_session_path %></li>
-        <li><%= link_to "impression", root_path %></li>
+        <li class = "header-nav-ber-item"><%= link_to "ログイン", new_user_session_path %></li>
+        <li class = "header-nav-ber-item"><%= link_to "impression", root_path %></li>
       </ul>
      </div>
    </div>
   <% end %>
   </header>
-  <body>
+  <main>
     <%= yield %>
-  </body>
+  </main>
   <footer>
    <div class= 'footer'>
 

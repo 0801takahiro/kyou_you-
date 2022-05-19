@@ -1,4 +1,48 @@
-
-<% @user.relationships.each do |relationship| %>
-  <%= link_to relationship.follow.name, user_path(relationship.follow) %></br>
+ <div class = 'body'>
+  <div class = 'user-page-prof'>
+   <div>
+    <%= attachment_image_tag @user, :image , fallback: "no-image.png", :size => '90x75' %>
+   </div>
+   <div class = 'user-page-prof-name'>
+    <%= @user.name %>
+   </div>
+   <div>
+    <%= @user.introduction %>
+   </div>
+   <div>
+    <%= link_to 'フォローリスト' ,user_follow_list_path(user_id: @user) %></br>
+    <%= link_to 'フォロワーリスト' ,user_follower_list_path(user_id: @user) %></br>
+    <% if user_signed_in? %>
+    <% if @user.id == current_user.id %>
+     <%= link_to 'いいね!リスト' , user_favorites_path(user_id: @user) %>
+    <% else %>
+    <% end %>
+   <% else %>
+   <% end %>
+   </div>
+   <div>
+    <% if user_signed_in? %>
+     <% if @user.id == current_user.id %>
+      <%= link_to "プロフィール編集", edit_user_path(current_user.id) %>
+     <% else %>
+      <tbody>
+       <%= render 'follow', user: @user %>
+      </tbody>
+     <% end %>
+   <% else %>
+   <% end %>
+   </div>
+ </div>
+<div>
+ <% @user.relationships.each do |relationship| %>
+  <div class = "impression-list-head">
+   <div class ="impression-list-icon">
+    <%= attachment_image_tag relationship.follow, :image , fallback: "no-image.png", :size => '60x50' %>
+   </div>
+   <div class ="impression-list-body-name">
+    <%= link_to relationship.follow.name, user_path(relationship.follow) %></br>
+   </div>
+ </div>
 <% end %>
+</div>
+</div>

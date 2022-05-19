@@ -6,6 +6,7 @@ class FavoritesController < ApplicationController
   def create
     @impression = Impression.find(params[:id])
     Favorite.create(user_id: current_user.id,impression_id: params[:id])
+    redirect_back
   end
   def destroy
     @impression = Impression.find(params[:id])

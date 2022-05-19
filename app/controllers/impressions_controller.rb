@@ -6,6 +6,7 @@ class ImpressionsController < ApplicationController
     @content = Content.all
   end
   def show
+    @new_impression = Impression.new
     @impression = Impression.find(params[:id])
     @impression_contents = @impression.contents
     @post_impressions = @impression.post_impressions
@@ -31,7 +32,7 @@ class ImpressionsController < ApplicationController
   def destroy
     @impression = Impression.find(params[:id])
     @impression.destroy
-    redirect_to root_path
+    redirect_back fallback_location: root_path
   end
   private
   def impression_params

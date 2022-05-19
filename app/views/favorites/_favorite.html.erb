@@ -1,5 +1,15 @@
       <% if user_signed_in? && current_user.favd?(impression.id) %>
-          <td><%= link_to 'いいね解除', destroy_favorite_path(impression.id), method: :DELETE, remote: true %><%= impression.favorites.count %></td>
+          <td>
+            <%= link_to destroy_favorite_path(impression.id), method: :DELETE, remote: true do %>
+              <i class = 'good-icon-heartnull'><%= image_tag 'heartfull.png', :size=>'30x25' %></i>
+            <% end %>
+            <a><%= impression.favorites.count %></a>
+          </td>
       <% else %>
-          <td><%= link_to 'いいね', create_favorite_path(impression.id), method: :POST, remote: true %><%= impression.favorites.count %></td>
+          <td>
+             <%= link_to create_favorite_path(impression.id), method: :POST, remote: true do %>
+               <i class = 'good-icon-heartfull'><%= image_tag 'heartnull.png', :size=>'30x25' %></i>
+             <% end %>
+             <%= impression.favorites.count %>
+          </td>
       <% end %>
