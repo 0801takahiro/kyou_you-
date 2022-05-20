@@ -10,7 +10,7 @@ class PostImpressionsController < ApplicationController
   def destroy
     @post_impression = PostImpression.find_by(id: params[:id])
     @post_impression.destroy
-    redirect_back fallback_location: @post
+    redirect_back fallback_location: root_path
   end
   private
   def post_impression_params

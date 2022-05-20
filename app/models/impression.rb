@@ -2,8 +2,8 @@ class Impression < ApplicationRecord
   has_many :content_relations, dependent: :destroy
   has_many :contents, through: :content_relations
   belongs_to :user
-  has_many :post_impressions
-  has_many :favorites
+  has_many :post_impressions, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   def self.looks(search, word)
     if search == "perfect_match"

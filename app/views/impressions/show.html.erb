@@ -14,7 +14,7 @@
 　   <%= f.submit "投稿" %>
 　 </div>
 
-   <% end %>
+    <% end %>
   </div>
   <div class = "seach">
       <h3>検索窓</h3>
@@ -27,41 +27,88 @@
    </div>
    <div class = "tag-list">
     <h3>タグ一覧</h3>
-   <% @content.each do |content| %>
-    <%= link_to content.name, search_content_path(content_id: content.id) %>
-    <%="(#{content.impressions.count})" %></br>
-   <% end %>
+     <% @content.each do |content| %>
+      <%= link_to content.name, search_content_path(content_id: content.id) %>
+      <%="(#{content.impressions.count})" %></br>
+     <% end %>
    </div>
-
+ </div>
  <% else %>
  <div class = 'new-impression'>
- <% @content.each do |content| %>
-    <%= link_to content.name, search_content_path(content_id: content.id) %>
-    <%="(#{content.impressions.count})" %></br>
-   <% end %>
- <% end %>
+  <div class = "seach">
+      <h3>検索窓</h3>
+      <%= form_with url: search_path, local: true, method: :get do |f| %>
+        <%= f.text_field :word %></br>
+        <%= f.select :range, options_for_select([['ユーザー','User'],  ['タグ','Content'],  ['投稿','Impression']]) %></br>
+        <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
+        <%= f.submit "検索" %>
+      <% end %>
+   </div>
+   <div class = "tag-list">
+    <h3>タグ一覧</h3>
+     <% @content.each do |content| %>
+      <%= link_to content.name, search_content_path(content_id: content.id) %>
+      <%="(#{content.impressions.count})" %></br>
+     <% end %>
+   </div>
  </div>
+ <% end %>
 <div class = 'impression-detail'>
-   <%= link_to @impression.user.name, user_path(@impression.user_id) %>
-  <div>
-    <%= @impression.body %>
-  </div>
-  <div id="favorite_buttons_<%= @impression.id %>">
+ <% if user_signed_in? %>
+ <div class = 'impression-body'>
+  <div class = 'impression-list'>
+     <div class = "impression-list-head">
+      <div class ="impression-list-icon">
+       <%= attachment_image_tag @impression.user, :image , fallback: "no-image.png", :size => '60x50' %>
+      </div>
+      <div class ="impression-list-body-name">
+       <%= link_to @impression.user.name, user_path(@impression.user_id) %></br>
+      </div>
+      <div id="favorite_buttons_<%= @impression.id %>">
         <%= render "favorites/favorite",impression: @impression %>
       </div>
-  <div>
-    <% @impression.contents.each do |content| %>
-     <%= link_to content.name, search_content_path(content_id: content.id) %>
-    <% end %>
+     </div>
+     <div class ="impression-list-body">
+      <%= link_to @impression.body, impression_path(@impression) %></br>
+      <%= @impression.created_at.strftime('%Y/%m/%d') %></br>
+      <% @impression.contents.each do |content| %>
+       <%= link_to content.name, search_content_path(content_id: content.id) %>
+      <% end %></br>
+
+     </div>
+     <div class = "impression-list-link">
+       <% if current_user.id == @impression.user_id %>
+        <%= link_to '削除', impression_path(impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
+       <% end %>
+     </div>
   </div>
-  <div>
+ </div>
+ <% else %>
+     <div>
+     <div>
+      <%= attachment_image_tag @impression.user, :image , fallback: "no-image.png", :size => '60x50' %>
+     </div>
+     <div>
+      <%= link_to @impression.user.name, user_path(@impression.user_id) %></br>
+      <%= link_to @impression.body, impression_path(@impression) %></br>
+      <% @impression.contents.each do |content| %>
+       <%= link_to content.name, search_content_path(content_id: content.id) %>
+      <% end %></br>
+
+     </div>
+
+     </div>
+
+
+<% end %>
+  <div class = 'impression-detail-res'>
     <div>
       <%= form_with(model:[@impression, @post_impression], local: true) do |f| %>
      <div class="field">
-      <%= f.label :返信 %></br>
-      <%= f.text_field :body %>
+      <h3><%= f.label :返信 %></br></h3>
+      <%= f.text_field :body %><%= f.submit "コメントする" %>
 　   </div>
-　    <%= f.submit "コメントする" %>
+
       <% end %>
     </div>
     <% @impression.post_impressions.each do |post_impression| %>
@@ -74,4 +121,7 @@
     </div>
     <% end %>
   </div>
+     </div>
+   </div>
+
 </div>

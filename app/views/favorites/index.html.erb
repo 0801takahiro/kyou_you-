@@ -1,3 +1,4 @@
+<div class = 'body'>
  <div class = 'user-page-prof'>
   <div>
    <%= attachment_image_tag @user, :image , fallback: "no-image.png", :size => '90x75' %>
@@ -11,13 +12,7 @@
   <div>
    <%= link_to 'フォローリスト' ,user_follow_list_path(user_id: @user) %></br>
    <%= link_to 'フォロワーリスト' ,user_follower_list_path(user_id: @user) %></br>
-  <% if user_signed_in? %>
-   <% if @user.id == current_user.id %>
-    <%= link_to 'いいね!リスト' , user_favorites_path(user_id: @user) %>
-   <% else %>
-   <% end %>
-  <% else %>
-  <% end %>
+   <%= link_to 'いいね!リスト' , user_favorites_path(user_id: @user) %>
   </div>
   <div>
   <% if user_signed_in? %>
@@ -49,7 +44,7 @@
       </div>
      </div>
      <div class ="impression-list-body">
-      <%= link_to favorite.impression.body, impression_path(favorite.impression) %></br>
+      <%= favorite.impression.body %></br>
       <%= favorite.impression.created_at.strftime('%Y/%m/%d') %></br>
       <% favorite.impression.contents.each do |content| %>
        <%= link_to content.name, search_content_path(content_id: content.id) %>
@@ -65,22 +60,30 @@
     </div>
     <% end %>
  <% else %>
+    <div class = 'impression-body'>
      <% @favorites.each do |favorite| %>
-     <div>
-     <div>
-      <%= attachment_image_tag favorite.impression.user, :image , fallback: "no-image.png", :size => '60x50' %>
+    <div class = 'impression-list'>
+     <div class = "impression-list-head">
+      <div class ="impression-list-icon">
+       <%= attachment_image_tag favorite.impression.user, :image , fallback: "no-image.png", :size => '60x50' %>
+      </div>
+      <div class ="impression-list-body-name">
+       <%= link_to favorite.impression.user.name, user_path(favorite.impression.user_id) %></br>
+      </div>
      </div>
-     <div>
-      <%= link_to favorite.impression.user.name, user_path(favorite.impression.user_id) %></br>
+     <div class ="impression-list-body">
       <%= link_to favorite.impression.body, impression_path(favorite.impression) %></br>
+      <%= favorite.impression.created_at.strftime('%Y/%m/%d') %></br>
       <% favorite.impression.contents.each do |content| %>
        <%= link_to content.name, search_content_path(content_id: content.id) %>
       <% end %></br>
-
      </div>
+      <div class = "impression-list-link">
+       <%= link_to 'コメント一覧へ',impression_path(favorite.impression) %><a>(<%= favorite.impression.post_impressions.count %>)</a>
+      </div>
 
      <% end %>
-     </div>
+    </div>
 
 
  <% end %>
@@ -88,3 +91,4 @@
      </div>
    </div>
   </div>
+ </div>

@@ -1,5 +1,8 @@
 <h2>登録情報編集</h2>
 <div>
+ <%= link_to "退会する", user_path(@user) ,method: :delete ,data: { confirm: '本当にいいですか?' } %>
+</div>
+<div>
  <%= form_with model:@user,local:true, method: :patch do |f| %>
  <div>
    <%= f.attachment_field :image %>

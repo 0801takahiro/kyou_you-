@@ -25,6 +25,11 @@ class UsersController < ApplicationController
       render :show
    end
   end
+  def destroy
+   @user = User.find_by(id: current_user)
+   @user.destroy
+   redirect_to root_path
+  end
   private
    def user_params
     params.require(:user).permit(:name, :introduction, :email, :image)
