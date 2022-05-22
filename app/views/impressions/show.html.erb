@@ -53,9 +53,8 @@
    </div>
  </div>
  <% end %>
-<div class = 'impression-detail'>
+<div class = 'impression-body'>
  <% if user_signed_in? %>
- <div class = 'impression-body'>
   <div class = 'impression-list'>
      <div class = "impression-list-head">
       <div class ="impression-list-icon">
@@ -78,10 +77,9 @@
      </div>
      <div class = "impression-list-link">
        <% if current_user.id == @impression.user_id %>
-        <%= link_to '削除', impression_path(impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
+        <%= link_to '削除', impression_path(@impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
        <% end %>
      </div>
-  </div>
  </div>
  <% else %>
      <div>
@@ -101,7 +99,9 @@
 
 
 <% end %>
+
   <div class = 'impression-detail-res'>
+   <% if user_signed_in? %>
     <div>
       <%= form_with(model:[@impression, @post_impression], local: true) do |f| %>
      <div class="field">
@@ -111,6 +111,8 @@
 
       <% end %>
     </div>
+   <% else %>
+   <% end %>
     <% @impression.post_impressions.each do |post_impression| %>
     <div>
      <%= link_to post_impression.user.name, user_path(post_impression.user_id) %></br>
@@ -121,7 +123,7 @@
     </div>
     <% end %>
   </div>
-     </div>
-   </div>
 
+   </div>
+</div>
 </div>

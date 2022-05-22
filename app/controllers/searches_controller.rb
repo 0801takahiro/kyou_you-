@@ -2,7 +2,7 @@ class SearchesController < ApplicationController
 
   def search
     @range = params[:range]
-
+    @content_list = Content.all
     if @range == "User"
       @users = User.looks(params[:search], params[:word])
     elsif @range == "Impression"

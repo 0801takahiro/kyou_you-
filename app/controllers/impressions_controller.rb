@@ -26,7 +26,7 @@ class ImpressionsController < ApplicationController
        @new_impression.save_content(content_list)
        redirect_to root_path
     else
-       render:index
+       redirect_back fallback_location: root_path
     end
   end
   def destroy

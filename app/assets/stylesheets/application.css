@@ -21,22 +21,26 @@
 a {
     text-decoration:none;
 }
-
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px;
+  padding-bottom: 0;
+}
  header {
   width: 100%;
   height: 100px;
-  background-color: red;
   text-align: center;
-  font-family: “gagagaga_free”;
 }
 .header-logo{
-  background-color: khaki;
   align-items: center;
   font-size: 40px;
 }
 
 .header-nav-ber {
-  background-color: blue;
+  justify-content: space-between;
 }
 .header-nav-ber-item{
   list-style: none;
@@ -45,6 +49,8 @@ a {
   font-size: 25px;
 }
 main{
+  min-height: calc(100vh - 100px);
+  padding-bottom: 30px;
   width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -58,11 +64,12 @@ main{
   text-align: left;
 }
 .impression-body{
-  width: 65%;
+  width: 50%;
 }
 .impression-list{
   display: flex;
-  flex-direction:column
+  flex-direction:column;
+  border: solid;
 }
 .impression-list-head{
   display: flex;
@@ -71,9 +78,6 @@ main{
 }
 .impression-list-body{
   text-align: left;
-}
-.impression-list-body-name{
-  
 }
 .impression-list-link{
   text-align: left;
@@ -86,10 +90,17 @@ main{
   width: 25px;
   height: 25px;
 }
-footer {
-  width: 100%;
-  height: 70px;
+.footer {
   position: absolute;
-  bottom:0;
+  bottom: 0;
+  margin-bottom: 0;
+  width: 100%;
+  height: 60px;
   background-color: blue;
+
+}
+.search-name {
+  width: 50%;
+  text-align: center;
+  font-size: 25px;
 }

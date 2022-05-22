@@ -1,47 +1,145 @@
-<h2>Results index</h2>
+<h2>検索結果</h2>
+<div class = 'body'>
+ <% if user_signed_in? %>
+ <div class = 'new-impression'>
+  <h5>思いの丈をぶちまけよう！</h5>
+   <div class="impression-field">
+    <%= form_with model:@new_impression, url: impressions_path ,local: true do |f| %>
+     <h3>感想</h3>
+      <%= f.text_field :body %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
 
-<table>
-  <% if @range == "User" %>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= link_to user.name, user_path(user) %></td>
-        </tr>
+   <div class="tag-field">
+    <h3>タグ</h3><h5>(複数タグをつける際はタグの間を全角スペースで区切ってください)</h5>
+     <%= f.text_field :name %>
+　   <%= f.submit "投稿" %>
+　 </div>
+
+    <% end %>
+  </div>
+   <div class = "seach">
+      <h3>検索窓</h3>
+      <%= form_with url: search_path, local: true, method: :get do |f| %>
+        <%= f.text_field :word %></br>
+        <%= f.select :range, options_for_select([['ユーザー','User'],  ['タグ','Content'],  ['投稿','Impression']]) %></br>
+        <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
+        <%= f.submit "検索" %>
       <% end %>
-    </tbody>
-  <% elsif @range == "Impression" %>
-    <tbody>
-    <% @impressions.each do |impression| %>
-       <div>
-         <div>
-        <%= link_to impression.user.name, user_path(impression.user_id) %>
-        </div>
-        <div>
-        <%= link_to impression.body, impression_path(impression) %>
-        </div>
-       <div>
-       <%= impression.contents.map(&:name).join('　') %>
-       </div>
+   </div>
+   <div class = "tag-list">
+    <h3>タグ一覧</h3>
+     <% @content_list.each do |content| %>
+      <%= link_to content.name, search_content_path(content_id: content.id) %>
+      <%="(#{content.impressions.count})" %></br>
+     <% end %>
+   </div>
+ </div>
+ <% else %>
 
-        <% if user_signed_in? && current_user.favd?(impression.id) %>
-          <%= link_to 'いいね解除', destroy_favorite_path(impression), method: :DELETE %>
-        <% else %>
-          <%= link_to 'いいね', create_favorite_path(impression), method: :POST %>
-        <% end %>
+ <div class = 'new-impression'>
+  <div class = "seach">
+      <h3>検索窓</h3>
+      <%= form_with url: search_path, local: true, method: :get do |f| %>
+        <%= f.text_field :word %></br>
+        <%= f.select :range, options_for_select([['ユーザー','User'],  ['タグ','Content'],  ['投稿','Impression']]) %></br>
+        <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
+        <%= f.submit "検索" %>
+      <% end %>
+   </div>
+   <div class = "tag-list">
+    <h3>タグ一覧</h3>
+     <% @content_list.each do |content| %>
+      <%= link_to content.name, search_content_path(content_id: content.id) %>
+      <%="(#{content.impressions.count})" %></br>
+     <% end %>
+   </div>
+ </div>
+ <% end %>
+  <% if @range == "User" %>
+   <div class 'search-name'>
+     <h3>
+      <% @users.each do |user| %>
+       <div class = "impression-list-head">
+        <div class ="impression-list-icon">
+         <%= attachment_image_tag user, :image , fallback: "no-image.png", :size => '60x50' %>
+        </div>
+        <div class ="impression-list-body-name">
+         <%= link_to user.name, user_path(user) %></br>
+        </div>
+       </div>
+      <% end %>
+     </h3>
+   </div>
+  <% elsif @range == "Impression" %>
+<% if user_signed_in? %>
+ <div class = 'impression-body'>
+   <% @impressions.each do |impression| %>
+    <div class = 'impression-list'>
+     <div class = "impression-list-head">
+      <div class ="impression-list-icon">
+       <%= attachment_image_tag impression.user, :image , fallback: "no-image.png", :size => '60x50' %>
       </div>
-      <div>
-        <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a>
+      <div class ="impression-list-body-name">
+       <%= link_to impression.user.name, user_path(impression.user_id) %></br>
+      </div>
+      <div id="favorite_buttons_<%= impression.id %>">
+        <%= render "favorites/favorite",impression: impression %>
+      </div>
+     </div>
+     <div class ="impression-list-body">
+      <%= link_to impression.body, impression_path(impression) %></br>
+      <%= impression.created_at.strftime('%Y/%m/%d') %></br>
+      <% impression.contents.each do |content| %>
+       <%= link_to content.name, search_content_path(content_id: content.id) %>
+      <% end %></br>
+
+     </div>
+     <div class = "impression-list-link">
+       <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a>
        <% if current_user.id == impression.user_id %>
         <%= link_to '削除', impression_path(impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
        <% end %>
      </div>
+    </div>
+   <% end %>
+ <% else %>
+ <div class = 'impression-body'>
+   <% @impressions.each do |impression| %>
+    <div class = 'impression-list'>
+     <div class = "impression-list-head">
+      <div class ="impression-list-icon">
+       <%= attachment_image_tag impression.user, :image , fallback: "no-image.png", :size => '60x50' %>
+      </div>
+      <div class ="impression-list-body-name">
+       <%= link_to impression.user.name, user_path(impression.user_id) %></br>
+      </div>
+     </div>
+     <div class ="impression-list-body">
+      <%= impression.body %></br>
+      <%= impression.created_at.strftime('%Y/%m/%d') %></br>
+      <% impression.contents.each do |content| %>
+       <%= link_to content.name, search_content_path(content_id: content.id) %>
+      <% end %></br>
 
-      <% end %>
-    </tbody>
+     </div>
+     <div class = "impression-list-link">
+       <%= link_to 'コメント一覧へ',impression_path(impression) %><a>(<%= impression.post_impressions.count %>)</a>
+       <% if user_signed_in? %>
+        <% if current_user.id == impression.user_id %>
+         <%= link_to '削除', impression_path(impression),method: :delete, data: { confirm: '本当にいいですか?' } %>
+        <% else %>
+        <% end %>
+       <% else %>
+       <% end %>
+     </div>
+   </div>
+   <% end %>
+ <% end %>
   <% elsif @range == "Content" %>
    <% @content.each do |content| %>
     <%= link_to content.name, search_content_path(content_id: content.id) %>
     <%="(#{content.impressions.count})" %>
    <% end %>
   <% end %>
-</table>
+  </div>
+ </div>

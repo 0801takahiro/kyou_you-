@@ -59,6 +59,9 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem 'pry-byebug'
 gem 'dotenv-rails'
+group :development, :test do
+  gem 'rspec-rails'
+end
 group :development do
   gem 'rubocop', require: false
 end

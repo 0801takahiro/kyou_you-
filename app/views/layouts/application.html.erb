@@ -10,10 +10,10 @@
   <% if user_signed_in? %>
    <div class = "header">
      <div class = "header-logo">
-       <a><%= link_to "Kyou_you-!",root_path %></a>
+       <a><%= link_to "共_you-!",root_path %></a>
      </div>
-     <div class = "header-nav-ber">
-      <ul>
+     <div>
+      <ul class = "header-nav-ber">
         <li class = "header-nav-ber-item"><%= link_to "マイページ", user_path(current_user) %></li>
         <li class = "header-nav-ber-item"><%= link_to "impression", root_path %></li>
         <li class = "header-nav-ber-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
@@ -23,7 +23,7 @@
   <% else %>
    <div class = 'header'>
      <div class = 'header-logo'>
-       <a><%= link_to "Kyou_you-!",root_path %></a>
+       <a><%= link_to "共_you-!",root_path %></a>
      </div>
      <div class = 'header-nav-ber'>
       <ul>

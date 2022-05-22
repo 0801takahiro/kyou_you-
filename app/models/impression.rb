@@ -4,7 +4,7 @@ class Impression < ApplicationRecord
   belongs_to :user
   has_many :post_impressions, dependent: :destroy
   has_many :favorites, dependent: :destroy
-
+  validates :body, presence: true, length: { maximum: 200 }
   def self.looks(search, word)
     if search == "perfect_match"
       @impression = Impression.where("body LIKE?","#{word}")
