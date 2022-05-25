@@ -1,10 +1,12 @@
+<%= flash[:alert] %>
+<%= flash[:success] %>
 <div class = 'body'>
  <% if user_signed_in? %>
  <div class = 'new-impression'>
   <h5>思いの丈をぶちまけよう！</h5>
    <div class="impression-field">
     <%= form_with model:@new_impression, url: impressions_path ,local: true do |f| %>
-     <h3>感想</h3>
+     <h3>感想(200文字まで)</h3>
       <%= f.text_field :body %>
       <%= f.hidden_field :user_id, value: current_user.id %>
 

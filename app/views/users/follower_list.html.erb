@@ -1,3 +1,5 @@
+<%= flash[:alert] %>
+<%= flash[:success] %>
  <div class = 'body'>
   <div class = 'user-page-prof'>
    <div>
@@ -12,13 +14,7 @@
    <div>
     <%= link_to 'フォローリスト' ,user_follow_list_path(user_id: @user) %></br>
     <%= link_to 'フォロワーリスト' ,user_follower_list_path(user_id: @user) %></br>
-    <% if user_signed_in? %>
-    <% if @user.id == current_user.id %>
-     <%= link_to 'いいね!リスト' , user_favorites_path(user_id: @user) %>
-    <% else %>
-    <% end %>
-   <% else %>
-   <% end %>
+    <%= link_to 'いいね!リスト' , user_favorites_path(user_id: @user) %>
    </div>
    <div>
     <% if user_signed_in? %>

@@ -1,4 +1,5 @@
 class ImpressionsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show, :search_content]
   def index
     @new_impression = Impression.new
     @impressions = Impression.all
@@ -24,14 +25,17 @@ class ImpressionsController < ApplicationController
     content_list = params[:impression][:name].split('　')
     if @new_impression.save
        @new_impression.save_content(content_list)
+       flash[:success] = '投稿が完了しました'
        redirect_to root_path
     else
+       flash[:alert] = '投稿が失敗しました'
        redirect_back fallback_location: root_path
     end
   end
   def destroy
     @impression = Impression.find(params[:id])
     @impression.destroy
+    flash[:success] = '投稿を削除しました'
     redirect_back fallback_location: root_path
   end
   private

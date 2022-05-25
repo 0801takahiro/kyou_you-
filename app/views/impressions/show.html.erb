@@ -1,3 +1,5 @@
+<%= flash[:alert] %>
+<%= flash[:success] %>
 <div class = 'body'>
  <% if user_signed_in? %>
  <div class = 'new-impression'>
@@ -121,6 +123,7 @@
     <div>
      <%= link_to post_impression.user.name, user_path(post_impression.user_id) %></br>
      <%= post_impression.body %></br>
+     <%= post_impression.created_at.strftime('%Y/%m/%d') %></br>
      <% if post_impression.user == current_user %>
      <%= link_to '削除', impression_post_impression_path(post_impression.impression,post_impression ),method: :delete, data: { confirm: '本当にいいですか?' } %>
      <% end %>

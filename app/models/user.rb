@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id', dependent: :destroy
   has_many :followers, through: :reverse_of_relationships, source: :user, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  validates :introduction, length: { maximum: 60 }
   attachment :image
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
