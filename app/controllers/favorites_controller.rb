@@ -2,7 +2,7 @@ class FavoritesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   def index
     @user = User.find(params[:user_id])
-    @favorites = @user.favorites
+    @favorites = @user.favorites.page(params[:page]).per(5)
   end
   def create
     @impression = Impression.find(params[:id])

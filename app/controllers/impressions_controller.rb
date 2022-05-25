@@ -2,7 +2,7 @@ class ImpressionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search_content]
   def index
     @new_impression = Impression.new
-    @impressions = Impression.all
+    @impressions = Impression.page(params[:page]).per(5)
     @content_list = Content.all
     @content = Content.all
   end
@@ -10,7 +10,7 @@ class ImpressionsController < ApplicationController
     @new_impression = Impression.new
     @impression = Impression.find(params[:id])
     @impression_contents = @impression.contents
-    @post_impressions = @impression.post_impressions
+    @post_impressions = @impression.post_impressions.page(params[:page]).per(5)
     @post_impression = PostImpression.new
     @content = Content.all
   end

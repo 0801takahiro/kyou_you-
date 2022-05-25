@@ -4,15 +4,16 @@ class UsersController < ApplicationController
   end
   def show
    @user = User.find(params[:id])
-   @impressions = @user.impressions
+   @impressions = @user.impressions.page(params[:page]).per(5)
    @contents = Content.all
   end
   def follow_list
    @user = User.find(params[:user_id])
+   @relationships = @user.relationships.page(params[:page]).per(10)
   end
   def follower_list
    @user = User.find(params[:user_id])
-   @follower = @user.reverse_of_relationships
+   @follower = @user.reverse_of_relationships.page(params[:page]).per(5)
   end
   def edit
    @user = User.find_by(id: current_user)

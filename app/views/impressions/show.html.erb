@@ -119,7 +119,7 @@
     </div>
    <% else %>
    <% end %>
-    <% @impression.post_impressions.each do |post_impression| %>
+    <% @post_impressions.each do |post_impression| %>
     <div>
      <%= link_to post_impression.user.name, user_path(post_impression.user_id) %></br>
      <%= post_impression.body %></br>
@@ -129,6 +129,7 @@
      <% end %>
     </div>
     <% end %>
+    <%= paginate @post_impressions %>
   </div>
 
    </div>

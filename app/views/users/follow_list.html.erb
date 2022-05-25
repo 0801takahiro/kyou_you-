@@ -30,7 +30,7 @@
    </div>
  </div>
 <div>
- <% @user.relationships.each do |relationship| %>
+ <% @relationships.each do |relationship| %>
   <div class = "impression-list-head">
    <div class ="impression-list-icon">
     <%= attachment_image_tag relationship.follow, :image , fallback: "no-image.png", :size => '60x50' %>
@@ -40,5 +40,6 @@
    </div>
  </div>
 <% end %>
+<%= paginate @relationships %>
 </div>
 </div>
