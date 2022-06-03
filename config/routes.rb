@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :users do
-    resources :favorites
+    resources :favorites, only: [:index ,:create, :destroy]
     get "follow_list" => "users#follow_list"
     get "follower_list" => "users#follower_list"
   end

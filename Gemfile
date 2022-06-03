@@ -33,6 +33,9 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -59,9 +62,6 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem 'pry-byebug'
 gem 'dotenv-rails'
-group :development, :test do
-  gem 'rspec-rails'
-end
 group :development do
   gem 'rubocop', require: false
 end

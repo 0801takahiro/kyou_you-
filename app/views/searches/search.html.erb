@@ -23,7 +23,7 @@
       <h3>検索窓</h3>
       <%= form_with url: search_path, local: true, method: :get do |f| %>
         <%= f.text_field :word %></br>
-        <%= f.select :range, options_for_select([['ユーザー','User'],  ['タグ','Content'],  ['投稿','Impression']]) %></br>
+        <%= f.select :range, options_for_select([['ユーザー','User'],  ['タグ','Content'],  ['投稿','Impression']]) %><br>
         <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
         <%= f.submit "検索" %>
       <% end %>
@@ -32,7 +32,7 @@
     <h3>タグ一覧</h3>
      <% @content_list.each do |content| %>
       <%= link_to content.name, search_content_path(content_id: content.id) %>
-      <%="(#{content.impressions.count})" %></br>
+      <%="(#{content.impressions.count})" %><br>
      <% end %>
    </div>
  </div>
@@ -42,8 +42,8 @@
   <div class = "seach">
       <h3>検索窓</h3>
       <%= form_with url: search_path, local: true, method: :get do |f| %>
-        <%= f.text_field :word %></br>
-        <%= f.select :range, options_for_select([['ユーザー','User'],  ['タグ','Content'],  ['投稿','Impression']]) %></br>
+        <%= f.text_field :word %><br>
+        <%= f.select :range, options_for_select([['ユーザー','User'],  ['タグ','Content'],  ['投稿','Impression']]) %><br>
         <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
         <%= f.submit "検索" %>
       <% end %>
@@ -52,7 +52,7 @@
     <h3>タグ一覧</h3>
      <% @content_list.each do |content| %>
       <%= link_to content.name, search_content_path(content_id: content.id) %>
-      <%="(#{content.impressions.count})" %></br>
+      <%="(#{content.impressions.count})" %><br>
      <% end %>
    </div>
  </div>
@@ -66,7 +66,7 @@
          <%= attachment_image_tag user, :image , fallback: "no-image.png", :size => '60x50' %>
         </div>
         <div class ="impression-list-body-name">
-         <%= link_to user.name, user_path(user) %></br>
+         <%= link_to user.name, user_path(user) %><br>
         </div>
        </div>
       <% end %>
@@ -82,18 +82,18 @@
        <%= attachment_image_tag impression.user, :image , fallback: "no-image.png", :size => '60x50' %>
       </div>
       <div class ="impression-list-body-name">
-       <%= link_to impression.user.name, user_path(impression.user_id) %></br>
+       <%= link_to impression.user.name, user_path(impression.user_id) %><br>
       </div>
       <div id="favorite_buttons_<%= impression.id %>">
         <%= render "favorites/favorite",impression: impression %>
       </div>
      </div>
      <div class ="impression-list-body">
-      <%= link_to impression.body, impression_path(impression) %></br>
-      <%= impression.created_at.strftime('%Y/%m/%d') %></br>
+      <%= link_to impression.body, impression_path(impression) %><br>
+      <%= impression.created_at.strftime('%Y/%m/%d') %><br>
       <% impression.contents.each do |content| %>
        <%= link_to content.name, search_content_path(content_id: content.id) %>
-      <% end %></br>
+      <% end %><br>
 
      </div>
      <div class = "impression-list-link">
@@ -113,15 +113,15 @@
        <%= attachment_image_tag impression.user, :image , fallback: "no-image.png", :size => '60x50' %>
       </div>
       <div class ="impression-list-body-name">
-       <%= link_to impression.user.name, user_path(impression.user_id) %></br>
+       <%= link_to impression.user.name, user_path(impression.user_id) %><br>
       </div>
      </div>
      <div class ="impression-list-body">
-      <%= impression.body %></br>
-      <%= impression.created_at.strftime('%Y/%m/%d') %></br>
+      <%= impression.body %><br>
+      <%= impression.created_at.strftime('%Y/%m/%d') %><br>
       <% impression.contents.each do |content| %>
        <%= link_to content.name, search_content_path(content_id: content.id) %>
-      <% end %></br>
+      <% end %><br>
 
      </div>
      <div class = "impression-list-link">

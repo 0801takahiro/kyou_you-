@@ -12,8 +12,8 @@
     <%= @user.introduction %>
    </div>
    <div>
-    <%= link_to 'フォローリスト' ,user_follow_list_path(user_id: @user) %></br>
-    <%= link_to 'フォロワーリスト' ,user_follower_list_path(user_id: @user) %></br>
+    <%= link_to 'フォローリスト' ,user_follow_list_path(user_id: @user) %><br>
+    <%= link_to 'フォロワーリスト' ,user_follower_list_path(user_id: @user) %><br>
     <%= link_to 'いいね!リスト' , user_favorites_path(user_id: @user) %>
    </div>
    <div>
@@ -36,7 +36,7 @@
     <%= attachment_image_tag relationship.user, :image , fallback: "no-image.png", :size => '60x50' %>
    </div>
    <div class ="impression-list-body-name">
-    <%= link_to relationship.user.name, user_path(relationship.user) %></br>
+    <%= link_to relationship.user.name, user_path(relationship.user) %><br>
    </div>
  </div>
 <% end %>
